@@ -22,6 +22,7 @@ Both the Bitcoin app and the web API are deployed in Azure Kubernetes which uses
 - [Docker](https://docs.docker.com/engine/install/)
 - [Helm](https://helm.sh/docs/intro/install/)
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+- [GIT](https://git-scm.com/)
 
 
 ## Installation
