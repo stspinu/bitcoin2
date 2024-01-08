@@ -1,10 +1,6 @@
 # Bitcoin Price Display
 
 
-```bash
-
-```
-
 ## Description
 
 Welcome to the Bitcoin Price Display.
