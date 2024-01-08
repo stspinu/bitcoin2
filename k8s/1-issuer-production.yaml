@@ -5,7 +5,7 @@ metadata:
   name: production
 spec:
   acme:
-    email: stspinu94@gmail.com
+    email: yourname@example.com
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: production-cluster-issuer
