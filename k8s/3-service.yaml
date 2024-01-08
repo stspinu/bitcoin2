@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app0newccxtkrakeneth-v2-secure
+spec:
+  ports:
+    - port: 5006
+      protocol: TCP
+  type: ClusterIP
+  selector:
+    app: app0newccxtkrakeneth
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginxapi-get-v2-secure
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+  type: ClusterIP
+  selector:
+    app: nginxapi-get
+

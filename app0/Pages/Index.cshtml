@@ -1,0 +1,42 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Bitcoing pricing</h1>
+</div>
+
+<div>
+    <p>Bitcoin price now = <span id="price"></span></p>
+    <p>Bitcoin price (10 minutes average) = <span id="counter"></span></p>
+</div>
+
+@section Scripts {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/counterHub").build();
+
+        connection.on("ReceiveCounter", function (counter) {
+            document.getElementById("counter").innerText = counter;
+        });
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script>
+
+    <script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/counterHub").build();
+
+    connection.on("ReceivePrice", function (price) {
+        document.getElementById("price").innerHTML = price;
+    });
+
+    connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script> 
+      
+}

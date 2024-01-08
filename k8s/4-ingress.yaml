@@ -1,0 +1,37 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myingressstefeth
+  annotations:
+    cert-manager.io/cluster-issuer: production
+spec:
+  ingressClassName: external-nginx
+  rules:
+    - host: andreea.stspinu.site
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app0newccxtkrakeneth-v2-secure
+                port:
+                  number: 5006
+    - host: stefanel.stspinu.site
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginxapi-get-v2-secure
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - andreea.stspinu.site
+      secretName: andreea-stspinu-site
+    - hosts:
+        - stefanel.stspinu.site
+      secretName: stefanel-stspinu-site

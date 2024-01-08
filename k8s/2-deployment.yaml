@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app0newccxtkrakeneth
+spec:
+  selector:
+    matchLabels:
+      app: app0newccxtkrakeneth
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app0newccxtkrakeneth
+    spec:
+      containers:
+        - image: stef13acr13.azurecr.io/app0ethbtc:v2 #nginx:latest #k8s.gcr.io/e2e-test-images/echoserver:2.5 #stef13acr13.azurecr.io/app0newccxtkrakeneth:v13 #k8s.gcr.io/e2e-test-images/echoserver:2.5 #nginx:1.25.2
+          name: app0newccxtkrakeneth
+          ports:
+            - containerPort: 5006
+              
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginxapi-get
+spec:
+  selector:
+    matchLabels:
+      app: nginxapi-get
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginxapi-get
+    spec:
+      containers:
+        - image: stef13acr13.azurecr.io/nginxapi_get:v13 
+          name: nginxapi-get
+          ports:
+            - containerPort: 80
+              
+          
+     
