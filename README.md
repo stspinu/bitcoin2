@@ -55,32 +55,77 @@ az aks get-credentials --resource-group tutorial15 --name dev-demo15
 az aks update -g tutorial15 -n dev-demo15 --attach-acr stef15acr15
 ```
 The above method is to preferred, so that you allow access in an AKS managed manner. If that doesn’t work, you can use an alternative where you get the object ID of your application and assign the AcrPull role directly on the resource group of you cluster. This should only be used if problems like the one in the screenshot below persist.
+![image](https://github.com/stspinu/bitcoin2/assets/46924453/c7e23efb-87be-456c-a3d7-d5f73775c6a4)
+
 
 ```bash
 az role assignment create --role "AcrPull" --assignee 28f4ac4f-ffdc-40a1-83f0-d774f7b068e5 --scope /subscriptions/18d7383b-303e-489e-86cc-cd3fa3c2eb6a/resourceGroups/tutorial15-dev-demo15
 ```
+Ensure docker is running on your system and then build the images locally and test them
+
+```bash
+cd bitcoin2/app0
+d build -t bitcoin2:v1 -f .\Dockerfile .
+docker run -p 5001:5006 --name container-bitcoin2 -d bitcoin2:v1
+```
+![image](https://github.com/stspinu/bitcoin2/assets/46924453/4b9de191-755d-4699-bd49-c99a41eadbfc)
 
 
 ```bash
-
+cd bitcoin2/nginxapi-get
+d build -t nginxapi-get:v1 -f .\Dockerfile .
+docker run -p 5002:80 --name container-nginxapi-get -d nginxapi-get:v1
 ```
+![image](https://github.com/stspinu/bitcoin2/assets/46924453/7322fc98-c98c-4d3e-bce3-8608e64921c1)
+
+Push the images to ACR
+
+```bash
+docker tag bitcoin2:v1 stef15acr15.azurecr.io/bitcoin2:v15
+docker tag nginxapi-get:v1 stef15acr15.azurecr.io/nginxapi-get:v15
+
+az acr login --name stef15acr15
+
+docker push stef15acr15.azurecr.io/bitcoin2:v15
+docker push stef15acr15.azurecr.io/nginxapi-get:v15
+```
+Adjust the yaml code with your desired names/values
+	- ISSUER modify the issuer both in staging and production with your e-mail address
+	- DEPLOYMENT modify the app name and the ACR
+	- SERVICE modify the service name and the apps used
+	- INGRESS modify the names accordingly and start with staging to obtain your certificate
+	
+
+Deploy your services to AKS
+
+```bash
+cd bitcoin2
+kubectl apply -f ./k8s/
+```
+If you investigate the chain of Certificate -> CertificateRequest -> Order -> Challenge using the kubectl describe command, you will see that Let's Encrypt is trying to verify your ownership for the provided domain, so you need to create a host in your DNS zone. 
+
+![image](https://github.com/stspinu/bitcoin2/assets/46924453/882fa0ea-6d74-4302-b372-8a218cf97a18)
+
+
+Therefore, you need to take the IP of your ingress and add it into your DNS zone (if you have one). In this example, we own a .site domain from GoDaddy and configured the registrar to point towards a specific public Azure DNS zone.
+
+![image](https://github.com/stspinu/bitcoin2/assets/46924453/33e43e9f-75a0-4a4f-97a5-47e67a7519a2)
+
+
+Modify the 4-ingress.yaml file to use the production issuer and redeploy the ingress file
 
 
 ```bash
-
+cd bitcoin2
+kubectl apply -f .\k8s\4-ingress.yaml
 ```
 
-
-```bash
-
-```
+![image](https://github.com/stspinu/bitcoin2/assets/46924453/df6a807f-26b3-4557-b3f0-0eb5b6d3351b)
 
 
-```bash
-
-```
+In a few minutes, you will see that the temporary ingresses start to disappear as they finish their jobs and your certificates become ready (True):
 
 
-```bash
+Test the two websites and ensure they work as expected. 
 
-```
+
