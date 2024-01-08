@@ -9,13 +9,20 @@ This project is a simple web app that displays the price of Bitcoin in parity wi
 
 It also displays the average price of BTC-USD over the last 10 minutes. 
 
-By default, the exchange used in this project is Kraken, but other [CCXT]([url](https://github.com/ccxt-net/ccxt.net)) supported exchanges (Bybit, Binance etc) can be utilized if required. 
+By default, the exchange used in this project is Kraken, but other [CCXT](https://github.com/ccxt-net/ccxt.net) supported exchanges (Bybit, Binance etc) can be utilized if required. 
 
-The project uses Terraform to deploy the resource to an Azure subscription. 
+The project uses Terraform to deploy the resources to an Azure subscription. 
 
 As a bonus, a simple web API is included, which responds with status code 200 only to GET requests.
 
-Both the Bitcoin app and the web API are deployed in Azure Kubernetes which uses ingress to do routing between the two service and perform the TLS termination as well. 
+Both the Bitcoin app and the web API are deployed in Azure Kubernetes which uses ingress to do routing between the two services and perform the TLS termination. 
+
+### Requirements
+[Azure subscription](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id)
+[Docker](https://docs.docker.com/engine/install/)
+[Helm](https://helm.sh/docs/intro/install/)
+[Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+
 
 ## Installation
 
