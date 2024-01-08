@@ -125,7 +125,16 @@ kubectl apply -f .\k8s\4-ingress.yaml
 
 In a few minutes, you will see that the temporary ingresses start to disappear as they finish their jobs and your certificates become ready (True):
 
+![image](https://github.com/stspinu/bitcoin2/assets/46924453/4350169d-44e3-41bf-8d84-d7e233d81612)
+
 
 Test the two websites and ensure they work as expected. 
 
+![image](https://github.com/stspinu/bitcoin2/assets/46924453/02497b73-8777-40fe-823f-7169eb5f286e)
+
+## Usage
+The website can be used as a reference of the Bitcoin price. It does not come with any guarantee and should not be considered as an advice to buy or sell Bitcoin. 
+
+## Disclaimer
+The information provided on this website serves as a reference for the current Bitcoin price and is for informational purposes only. It does not come with any guarantee and should not be considered as advice to buy or sell Bitcoin.
 
