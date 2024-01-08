@@ -40,8 +40,8 @@ Login to your Azure tenant and select the desired subscription where you want to
 
 
 ```bash
-az login --tenant 16b3c013-d300-468d-ac64-7eda0820b6d3
-az account set --subscription 18d7383b-303e-489e-86cc-cd3fa3c2eb6a
+az login --tenant <tenant_id>
+az account set --subscription <subscription_id>
 ```
 Create the resources via Terraform deployment.
 
@@ -63,7 +63,7 @@ The above method is to preferred, so that you allow access in an AKS managed man
 
 
 ```bash
-az role assignment create --role "AcrPull" --assignee 28f4ac4f-ffdc-40a1-83f0-d774f7b068e5 --scope /subscriptions/18d7383b-303e-489e-86cc-cd3fa3c2eb6a/resourceGroups/tutorial15-dev-demo15
+az role assignment create --role "AcrPull" --assignee <object_id> --scope /subscriptions/<subscription_id>/resourceGroups/tutorial15-dev-demo15
 ```
 Ensure docker is running on your system and then build the images locally and test them
 
