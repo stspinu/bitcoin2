@@ -69,7 +69,7 @@ Ensure docker is running on your system and then build the images locally and te
 
 ```bash
 cd bitcoin2/app0
-d build -t bitcoin2:v1 -f .\Dockerfile .
+docker build -t bitcoin2:v1 -f .\Dockerfile .
 docker run -p 5001:5006 --name container-bitcoin2 -d bitcoin2:v1
 ```
 ![image](https://github.com/stspinu/bitcoin2/assets/46924453/4b9de191-755d-4699-bd49-c99a41eadbfc)
@@ -77,7 +77,7 @@ docker run -p 5001:5006 --name container-bitcoin2 -d bitcoin2:v1
 
 ```bash
 cd bitcoin2/nginxapi-get
-d build -t nginxapi-get:v1 -f .\Dockerfile .
+docker build -t nginxapi-get:v1 -f .\Dockerfile .
 docker run -p 5002:80 --name container-nginxapi-get -d nginxapi-get:v1
 ```
 ![image](https://github.com/stspinu/bitcoin2/assets/46924453/7322fc98-c98c-4d3e-bce3-8608e64921c1)
