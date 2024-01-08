@@ -17,11 +17,11 @@ As a bonus, a simple web API is included, which responds with status code 200 on
 
 Both the Bitcoin app and the web API are deployed in Azure Kubernetes which uses ingress to do routing between the two services and perform the TLS termination. 
 
-### Requirements
-[Azure subscription](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id)
-[Docker](https://docs.docker.com/engine/install/)
-[Helm](https://helm.sh/docs/intro/install/)
-[Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+## Requirements
+- [Azure subscription](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id)
+- [Docker](https://docs.docker.com/engine/install/)
+- [Helm](https://helm.sh/docs/intro/install/)
+- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 
 
 ## Installation
@@ -57,7 +57,7 @@ Get access to your cluster and then grant it permissions over the ACR (Azure Con
 az aks get-credentials --resource-group tutorial15 --name dev-demo15
 az aks update -g tutorial15 -n dev-demo15 --attach-acr stef15acr15
 ```
-The above method is to preferred, so that you allow access in an AKS managed manner. If that doesn’t work, you can use an alternative where you get the object ID of your application and assign the AcrPull role directly on the resource group of you cluster. This should only be used if problems like the one in the screenshot below persist.
+The above method is to preferred, so that you allow access in an AKS managed manner. If that doesn’t work, you can use an alternative where you get the object ID of your application and assign the AcrPull role directly on the resource group of you cluster. You might get a resource not found for the ACR initially - if that happens, simply wait for a few minutes and try again. 
 ![image](https://github.com/stspinu/bitcoin2/assets/46924453/c7e23efb-87be-456c-a3d7-d5f73775c6a4)
 
 
@@ -93,10 +93,10 @@ docker push stef15acr15.azurecr.io/bitcoin2:v15
 docker push stef15acr15.azurecr.io/nginxapi-get:v15
 ```
 Adjust the yaml code with your desired names/values
-	- ISSUER modify the issuer both in staging and production with your e-mail address
-	- DEPLOYMENT modify the app name and the ACR
-	- SERVICE modify the service name and the apps used
-	- INGRESS modify the names accordingly and start with staging to obtain your certificate
+- ISSUER modify the issuer both in staging and production with your e-mail address
+- DEPLOYMENT modify the app name and the ACR
+- SERVICE modify the service name and the apps used
+- INGRESS modify the names accordingly and start with staging to obtain your certificate
 	
 
 Deploy your services to AKS
@@ -105,7 +105,7 @@ Deploy your services to AKS
 cd bitcoin2
 kubectl apply -f ./k8s/
 ```
-If you investigate the chain of Certificate -> CertificateRequest -> Order -> Challenge using the kubectl describe command, you will see that Let's Encrypt is trying to verify your ownership for the provided domain, so you need to create a host in your DNS zone. 
+If you investigate the chain of Certificate -> CertificateRequest -> Order -> Challenge using the __kubectl describe__ command, you will see that Let's Encrypt is trying to verify your ownership for the provided domain, so you need to create a host in your DNS zone. 
 
 ![image](https://github.com/stspinu/bitcoin2/assets/46924453/882fa0ea-6d74-4302-b372-8a218cf97a18)
 
