@@ -9,7 +9,7 @@ This project is a simple web app that displays the price of Bitcoin in parity wi
 
 It also displays the average price of BTC-USD over the last 10 minutes. 
 
-By default, the exchange used in this project is Kraken, but other CCXT supported exchanges (Bybit, Binance etc) can be utilized if required. 
+By default, the exchange used in this project is Kraken, but other [CCXT]([url](https://github.com/ccxt-net/ccxt.net)) supported exchanges (Bybit, Binance etc) can be utilized if required. 
 
 The project uses Terraform to deploy the resource to an Azure subscription. 
 
